@@ -29,15 +29,29 @@ function Post() {
 
 
     const postComments = () => {
-        axios.post(`/comments`, {
-            commentBody: newComment,
-            PostId: id,
-        }).then((response) => {
-            const commentToAdd = {commentBody: newComment, createdAt: Date().toLocaleString()}
-            setComments([...comments, commentToAdd]);
-            console.log(comments);
-            setNewComment("");
-        });
+        axios
+            .post(
+                `/comments`,
+                {
+                    commentBody: newComment,
+                    PostId: id,
+                },
+                {
+                    headers: {
+                        accessToken: sessionStorage.getItem("accessToken"),
+                    }
+                }
+            )
+            .then((response) => {
+                if (response.data.error) {
+                    alert(response.data.error);
+                } else {
+
+                    const commentToAdd = { commentBody: newComment, createdAt: Date().toLocaleString() }
+                    setComments([...comments, commentToAdd]);
+                    setNewComment("");
+                }
+            });
     };
 
     return (

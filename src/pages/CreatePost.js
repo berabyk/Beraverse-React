@@ -1,6 +1,6 @@
-import React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import axios from 'axios';
 
 function CreatePost() {
@@ -11,23 +11,22 @@ function CreatePost() {
         username: "",
     };
 
-    const onSubmit = async (data) => {
-        const response = await axios.post('/posts', data);
-        console.log(response);
-    };
-
     const validationSchema = Yup.object().shape({
         title: Yup.string().required(),
         postText: Yup.string().required(),
         username: Yup.string().min(3).max(13).required(),
-    })
+    });
+
+    const onSubmit = async (data) => {
+        const response = await axios.post('/posts', data);
+        console.log(response);
+    };
 
     return (
         <div className='flex flex-col items-center mt-10'>
             <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                 <Form className='flex flex-col'>
                     <div className='flex flex-col border-2 border-slate-600 rounded m-3 w-96 shadow-md shadow-slate-400 align-middle justify-center'>
-
                         <Field
                             id='inputCreatePost'
                             name='title'

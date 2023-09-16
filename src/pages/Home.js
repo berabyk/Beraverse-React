@@ -15,6 +15,7 @@ function Home() {
     const fetchPosts = async () => {
         const response = await axios.get('/posts');
         setPosts(response.data);
+        console.log(response.data);
     };
 
     return (
